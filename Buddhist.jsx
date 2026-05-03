@@ -1,39 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Code, Lightbulb, Rocket, Target, Trophy } from "lucide-react";
-import Landing from "../../components/departments/Landing";
-import AboutSection from "../../components/departments/AboutIct";
-import SchoolStats from "../../components/departments/SchoolStats";
-import LeadershipCard from "../../components/departments/Dean";
-import DepartmentsSection from "../../components/departments/Deptcard";
-import ProgramsShowcase from "../../components/departments/Program";
-import FacultyCarousel from "../../components/departments/faculty_rotating.jsx";
-import NoticeEvents from "../../components/departments/Notice.jsx";
-import PlacementsSection from "../../components/departments/Placement.jsx";
-import RecentPlacements from "../../components/departments/Recent_Placement.jsx";
-import RecruitersShowcase from "../../components/departments/Recuritor_showcase";
-import ClubsAchievements from "../../components/departments/Clubs_activevment.jsx";
-import StudentAchievements from "../../components/departments/Student_achievements.jsx";
-import StudentStartup from "../../components/departments/Startup.jsx";
-
-
-
-const componentsMap = {
-  Landing,
-  AboutSection,
-  SchoolStats,
-  LeadershipCard,
-  DepartmentsSection,
-  ProgramsShowcase,
-  FacultyCarousel,
-  NoticeEvents,
-  PlacementsSection,
-  RecentPlacements,
-  RecruitersShowcase,
-  ClubsAchievements,
-  StudentAchievements,
-  StudentStartup,
-};
-  const buddhistslides = [
+const buddhistslides = [
   {
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSAkYj4I9sawa_oLwgyVPf9hf-ooy83Ieytw&s",
     title: "School of Buddhist Studies and Civilization ",
@@ -45,14 +12,8 @@ const componentsMap = {
     subtitle: "Hands-on Training",
   },
 ];
-export default function DepartmentDynamicPage() {
-  const [sections, setSections] = useState([]);
-
-  useEffect(() => {
-    const fetchSections = async () => {
-
-     const response = [
-             { componentName: "Landing", enabled: true, position: 1,  props:{ slides : buddhistslides }, },
+ export const sectionsConfig = [
+     { componentName: "Landing", enabled: true, position: 1,  props:{ slides : buddhistslides }, },
      
             {
   componentName: "AboutSection",
@@ -778,25 +739,3 @@ export default function DepartmentDynamicPage() {
   },
 },
      ];
-      const enabledSorted = response
-        .filter((sec) => sec.enabled)
-        .sort((a, b) => a.position - b.position);
-      setSections(enabledSorted);
-    };
-
-    fetchSections();
-  }, []);
-
-  return (
-    <div className="min-h-screen bg-white">
-      {sections.map((section, idx) => {
-        const Component = componentsMap[section.componentName];
-        if (!Component) return null;
-
-        return <Component key={idx} {...(section.props || {})} />;
-
-      })}
-    </div>
-  );
-
-}
